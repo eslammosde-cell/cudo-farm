@@ -1,22 +1,20 @@
-name: Cudo-Mining-Farm
+name: Cudo-Single-Node
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 */4 * * *'
 
 jobs:
   mining:
-    strategy:
-      matrix:
-        worker: [1, 2, 3, 4, 5] 
     runs-on: ubuntu-latest
     steps:
       - name: Start Cudo Worker
         run: |
-          # دي الطريقة اللي هتخليه يختار 2 أوتوماتيك ويوافق على الشروط
+          # تحميل السكربت
           wget -qO install_cudo.sh https://download.cudo.org/tenants/135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1/linux/x64/stable/install.sh
           chmod +x install_cudo.sh
+          
+          # اختيار الاختيار رقم 2 أوتوماتيكياً
           echo "2" | sudo ./install_cudo.sh
           
-          echo "Worker ${{ matrix.worker }} is running..."
-          sleep 21000
+          echo "Worker is starting..."
+          # تشغيل لمدة 6 ساعات
+          sleep 21600
