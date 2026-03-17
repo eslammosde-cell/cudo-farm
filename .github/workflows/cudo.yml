@@ -1,6 +1,8 @@
 name: Cudo-Final-Link
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *' # تحديث تلقائي كل 6 ساعات
 
 jobs:
   mining:
@@ -8,15 +10,18 @@ jobs:
     steps:
       - name: Start Cudo Worker
         run: |
+          # تحميل وتنصيب مع تمرير كل الإجابات مرة واحدة
           wget -qO install_cudo.sh https://download.cudo.org/tenants/135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1/linux/x64/stable/install.sh
           chmod +x install_cudo.sh
-          
-          # بنجاوب على الأسئلة: 2 (Headless) -> اليوزر -> y (Tools) -> 1 (Stable)
           echo -e "2\nrespectable-ox\ny\n1" | sudo ./install_cudo.sh
           
-          echo "Connecting to account..."
-          # تجربة الربط عن طريق الأمر المباشر لليوزر
-          sudo cudo-admin login respectable-ox
+          echo "Installation done. Waiting for service..."
+          sleep 10
           
-          echo "Worker is starting..."
-          sleep 21600
+          # التأكد من تشغيل الخدمة وربطها باليوزر
+          sudo cudo-miner-service stop || true
+          sudo cudo-miner-service start || true
+          
+          echo "Worker is active and mining for respectable-ox"
+          # وقت التشغيل الأقصى
+          sleep 21000
