@@ -1,4 +1,4 @@
-name: Cudo-Single-Node
+name: Cudo-Final-Link
 on:
   workflow_dispatch:
 
@@ -11,8 +11,11 @@ jobs:
           wget -qO install_cudo.sh https://download.cudo.org/tenants/135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1/linux/x64/stable/install.sh
           chmod +x install_cudo.sh
           
-          # الترتيب: 2 (Headless) -> اليوزر -> y (Tools) -> 1 (Stable Channel)
+          # الترتيب: 2 (Headless) -> اليوزر -> y (Tools) -> 1 (Stable)
           echo -e "2\nrespectable-ox\ny\n1" | sudo ./install_cudo.sh
           
-          echo "Worker is starting..."
+          # خطوة الربط المباشر بالـ Access Key بتاعك عشان يظهر في الموقع
+          sudo cudominercli login --access-key a92281a0644429c9836011d86f274a26
+          
+          echo "Worker is linked and starting..."
           sleep 21600
