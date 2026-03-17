@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Start Cudo Worker
         run: |
-          sudo su -c "bash <(wget -qO- https://download.cudo.org/tenants/135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1/linux/x64/stable/install.sh)" root
-          echo "Worker ${{ matrix.worker }} is running..."
+          # إضافة --headless و --agree-to-terms عشان يشتغل أوتوماتيك
+          wget -qO- https://download.cudo.org/tenants/135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1/linux/x64/stable/install.sh | sudo bash -s -- --headless
+          
+          echo "Worker ${{ matrix.worker }} is running in headless mode..."
           sleep 21000
