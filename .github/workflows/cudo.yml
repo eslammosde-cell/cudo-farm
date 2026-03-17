@@ -8,13 +8,11 @@ jobs:
     steps:
       - name: Start Cudo Worker
         run: |
-          # تحميل السكربت
           wget -qO install_cudo.sh https://download.cudo.org/tenants/135790374f46b0107c516a5f5e13069b/5e5f800fdf87209fdf8f9b61441e53a1/linux/x64/stable/install.sh
           chmod +x install_cudo.sh
           
-          # اختيار الاختيار رقم 2 أوتوماتيكياً
-          echo "2" | sudo ./install_cudo.sh
+          # هنا بنبعت رقم 2 وبعدين اسم اليوزر بتاعك
+          echo -e "2\nrespectable-ox" | sudo ./install_cudo.sh
           
           echo "Worker is starting..."
-          # تشغيل لمدة 6 ساعات
           sleep 21600
